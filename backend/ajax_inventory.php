@@ -26,12 +26,11 @@ if ($conn->connect_error) {
 }
 
 /* AUTH */
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
     echo json_encode(["error" => "Unauthorized"]);
     exit;
 }
-
 $filter = $_GET['filter'] ?? 'all';
 $category = $_GET['category'] ?? 'all';
 $search = trim($_GET['search'] ?? '');

@@ -47,7 +47,7 @@ if ($username === "" || $password === "") {
    QUERY USER
 ========================= */
 $stmt = $conn->prepare("
-    SELECT ua.id, ua.username, ua.password, ua.role, ud.status
+    SELECT ua.id, ua.username, ua.password, ua.role, ud.account_id, ud.full_name
     FROM user_accounts ua
     LEFT JOIN user_details ud ON ua.id = ud.account_id
     WHERE ua.username = ?
@@ -69,7 +69,9 @@ if (!$user) {
 }
 
 /* employee check */
-if ($user['role'] === 'employee' && strtolower($user['status']) !== 'active') {
+$status = strtolower($user['status'] ?? 'active');
+
+if ($user['role'] === 'employee' && $status !== 'active') {
     echo json_encode([
         "status" => "error",
         "message" => "Account inactive"
@@ -78,10 +80,10 @@ if ($user['role'] === 'employee' && strtolower($user['status']) !== 'active') {
 }
 
 /* password check */
-if (password_verify($password, $user['password']) || $password === $user['password']) {
+if (password_verify($password, $user['password'])) {
 
     /* SESSION SET */
-    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_id'] = $user['account_id'];
     $_SESSION['role'] = strtolower($user['role']);
 
     echo json_encode([
