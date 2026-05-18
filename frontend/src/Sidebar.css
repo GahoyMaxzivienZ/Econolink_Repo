@@ -1,0 +1,134 @@
+.sidebar {
+  width: 250px;
+  background: #001f3f;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px 0;
+  min-height: 100vh;
+   position: fixed;  
+  top: 0;            
+  left: 0;           
+  height: 100vh;     
+  overflow-y: auto;  
+}
+.sidebar {
+  font-family: "Poppins", sans-serif;
+}
+.logo {
+  text-align: center;
+  font-size: 1.7em;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.logo-img {
+  display: block;
+  margin: 0 auto 10px;
+  width: 100px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  overflow: hidden;
+}
+
+.menu li div {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  filter: brightness(0) invert(1);
+}
+
+/* HOVER + ACTIVE */
+.menu li div:hover,
+.menu li div.active {
+  background: white;
+  color: #001f3f;
+  transform: translateX(5px);
+}
+
+.menu li div:hover .icon,
+.menu li div.active .icon {
+  transform: translateX(5px);
+  filter: brightness(0) saturate(100%) invert(9%) sepia(99%)
+    saturate(7499%) hue-rotate(202deg) brightness(94%) contrast(103%);
+}
+
+/* POPUP */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  max-width: 450px;
+  width: 90%;
+}
+
+.popup h3 {
+  color: #001f3f;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.confirm,
+.cancel {
+  padding: 10px 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.confirm {
+  background: #001f3f;
+  color: white;
+}
+
+.confirm:hover {
+  background: #005fcc;
+}
+
+.cancel {
+  background: #ddd;
+  color: #001f3f;
+}
+
+.cancel:hover {
+  background: #bbb;
+}

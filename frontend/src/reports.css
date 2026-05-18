@@ -1,0 +1,251 @@
+.reports-page {
+  font-family: 'Poppins', sans-serif;
+  background: #f4f9ff;
+  margin: 0;
+}
+
+.reports-page .container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* MAIN */
+.reports-page .main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  margin-left: 250px;
+}
+
+/* HEADER */
+.reports-page .header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background: #001f3f;
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+/* CARDS */
+.reports-page .cards {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.reports-page .card {
+  flex: 0 1 160px;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  border: 2px solid #001f3f;
+  box-shadow: 0 4px 12px rgba(0, 127, 255, 0.1);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.reports-page .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 127, 255, 0.2);
+}
+
+.reports-page .card h3 {
+  margin-bottom: 10px;
+  color: #001f3f;
+  font-size: 14px;
+}
+
+.reports-page .card p {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* TABLE SECTION */
+.reports-page .table-section {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 15px rgba(0, 127, 255, 0.1);
+  min-height: 450px;
+}
+
+.reports-page .table-section h3 {
+  color: #001f3f;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* TABLE */
+.reports-page table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.reports-page th,
+.reports-page td {
+  border: 1px solid #001f3f;
+  padding: 6px;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.reports-page th {
+  background: #f5f8ff;
+  color: #001f3f;
+}
+
+/* BUTTON */
+.reports-page .print-btn {
+  padding: 8px 16px;
+  background: #001f3f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.reports-page .print-btn:hover {
+  background: #005fcc;
+}
+
+/* SCROLLABLE TABLE */
+.reports-page .scrollable-table {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #001f3f;
+  border-radius: 8px;
+}
+
+/* CHARTS */
+.reports-page .charts-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.reports-page .chart-box {
+  flex: 1;
+  min-width: 300px;
+  background: #f9fbff;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 31, 63, 0.08);
+  transition: 0.3s;
+}
+
+.reports-page .chart-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 127, 255, 0.15);
+}
+
+.reports-page .chart-box h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #001f3f;
+}
+
+/* APEX FIX */
+.reports-page .apexcharts-canvas {
+  min-height: 350px !important;
+  max-width: 100% !important;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .reports-page .charts-row {
+    flex-direction: column;
+  }
+}
+
+/* TABLE SECTION CONTAINER */
+.reports-page .table-section {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 25px;
+  box-shadow: 0 6px 18px rgba(0, 127, 255, 0.08);
+}
+
+/* TITLE */
+.reports-page .table-section h3 {
+  color: #001f3f;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* TABLE WRAPPER (SCROLL) */
+.reports-page .scrollable-table {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #001f3f;
+  border-radius: 8px;
+}
+
+/* TABLE */
+.reports-page table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* CELLS */
+.reports-page th,
+.reports-page td {
+  border: 1px solid #001f3f;
+  padding: 8px;
+  text-align: left;
+  word-wrap: break-word;
+  font-size: 13px;
+}
+
+/* HEADER */
+.reports-page th {
+  background: #f5f8ff;
+  color: #001f3f;
+  font-weight: 600;
+}
+
+/* ROW HOVER EFFECT */
+.reports-page tbody tr:hover {
+  background: rgba(0, 127, 255, 0.05);
+}
+
+/* BUTTON */
+.reports-page .filter-btn {
+  background: #001f3f;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.reports-page .filter-btn:hover {
+  background: #005fcc;
+}
+
+/* sticky header */
+.reports-page thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* zebra rows */
+.reports-page tbody tr:nth-child(even) {
+  background: #fafcff;
+}

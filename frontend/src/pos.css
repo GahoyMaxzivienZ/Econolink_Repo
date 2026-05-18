@@ -1,0 +1,745 @@
+.pos-wrapper {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background: white;
+  color: white;
+}
+
+/* LEFT */
+.pos-left {
+  flex: 2;
+  padding: 15px;
+  overflow: auto;
+}
+
+.pos-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  margin-top: 10px;
+}
+
+.topbar-right {
+  display: flex;
+  gap: 10px;
+}
+
+.pos-topbar button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #001f3f;
+  color: white;
+}
+
+.pos-topbar input,
+.pos-topbar select {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  border: 2px solid #1e293b;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.card {
+  background: #1e293b;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.2s;
+  border: 2px solid #1e293b;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.card-info {
+  padding: 10px;
+}
+
+.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* RIGHT */
+.pos-right {
+  flex: 1;
+  background: #111827;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pos-right h3 {
+  text-align: center;
+  margin: 0 0 10px 0;
+}
+.receipt-line {
+  display: grid;
+  grid-template-columns: 50px 1fr 90px;
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.receipt-line.header {
+  font-weight: bold;
+}
+.receipt-headerB {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  margin-top: 8px;
+  color: #111;
+}
+
+.receipt-info-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.receipt-brand {
+  text-align: center;
+  color: #111;
+  margin-bottom: 10px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.receipt-store {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.receipt-address {
+  font-size: 11px;
+  line-height: 1.4;
+  color: #333;
+}
+.receipt-print-area {
+  width: 320px;          /* parang receipt width */
+  margin: 0 auto;
+  background: #fff;
+  color: #111;
+  padding: 15px;
+  border: 1px solid #000;   /* ito yung border */
+  border-radius: 10px;
+  max-height: 60vh;      /* 👈 dito nagiging scrollable */
+  overflow-y: auto;
+}
+
+/* para hindi sumobra sa screen */
+.receipt-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* optional: para sakto sa print */
+@media print {
+  @page {
+  size: 58mm auto;
+}
+  body * {
+    visibility: hidden;
+  }
+
+  .receipt-print-area,
+  .receipt-print-area * {
+    visibility: visible;
+  }
+
+  .receipt-print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80mm;
+    border: none !important; /* 🔥 REMOVE BORDER */
+    box-shadow: none !important;
+  }
+
+  .receipt-actions {
+    display: none;
+  }
+  .receipt-title-text {
+  text-align: center;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+}
+.col-name {
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.divider {
+  border-top: 1px dashed #000;
+  margin: 5px 0;
+}
+/* RECEIPT BOX */
+.receipt-box {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  color: black;
+}
+
+/* ROW SYSTEM FIX (IMPORTANT FIX HERE) */
+.receipt-header,
+.receipt-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 30px;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 14px;
+}
+
+/* HEADER */
+.receipt-header {
+  font-weight: bold;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 5px;
+}
+
+/* NAME COLUMN */
+.col-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+}
+
+/* IMAGE */
+.receipt-img {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+/* FIXED ALIGNMENT ONLY (NO MORE SHIFT BUGS) */
+.col-qty {
+  text-align: center;
+}
+
+.col-price {
+  text-align: right;
+}
+
+/* CHECKOUT */
+.checkout {
+  padding: 12px;
+  background: rgb(3, 104, 3);
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.cash-input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.2s;
+}
+
+/* kapag kulang ang cash */
+.cash-input.error {
+  border: 2px solid #ef4444;
+  background: #ffe5e5;
+  color: #b91c1c;
+}
+.checkout:disabled {
+  opacity: 0.5;
+}
+.insufficient-text {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 5px;
+  text-align: right;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* optional smooth appearance */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* MODAL */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+}
+
+/* REMOVE BUTTON FIX */
+.remove-btn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: translateY(-1px);
+}
+
+.remove-btn:hover {
+  transform: scale(1.2) translateY(-2px);
+}
+
+/* MODAL BOX */
+.modal-boxx {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  color: #111;
+  text-align: center;
+  animation: pop 0.2s ease-in-out;
+}
+
+.modal-boxx h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modal-boxx  p {
+  color: black;
+}
+
+.modal-boxx input {
+  width: 70%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+/* BUTTONS */
+.modal-boxx button {
+  width: 70%;
+  height: 45px;
+  padding: 10px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.modal-boxx button:first-of-type {
+  background: #001f3f;
+  color: white;
+}
+
+.modal-boxx button:last-of-type {
+  background: red;
+  color: white;
+}
+
+/* IMAGE */
+.modal-img {
+  width: 70%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+/* =========================
+   RIGHT SIDE RESTRUCTURE
+========================= */
+
+/* HEADER */
+.receipt-title {
+  text-align: center;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.receipt-title h3 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.receipt-meta {
+  font-size: 12px;
+  color: #cbd5e1;
+  margin-top: 5px;
+}
+
+/* BOX GROUPING */
+.summary-box,
+.payment-box {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  color: black;
+}
+
+/* SUMMARY LINES */
+.summary-box .line {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+.summary-box .total {
+  font-weight: bold;
+  font-size: 16px;
+  border-top: 1px solid #ddd;
+  margin-top: 5px;
+  padding-top: 6px;
+}
+
+/* PAYMENT SECTION */
+.payment-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.payment-box input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.change-line {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+}
+.change-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* make both buttons equal height */
+.clear-receipt,
+.checkout {
+  flex: 1;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CLEAR BUTTON */
+.clear-receipt {
+  flex: 1;
+  padding: 12px;
+  background: #f82020;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.clear-receipt:hover {
+  background: #b90404;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+/* CHECKOUT BUTTON */
+.checkout {
+  flex: 1;
+  padding: 12px;
+  background: #22c55e;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.checkout:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.left-status {
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 600;
+}
+/* RECEIPT ROW FIX ALIGNMENT */
+.col-qty {
+  flex: 1;
+  text-align: center;
+  transform: translateX(-5px);
+}
+
+.col-price {
+  flex: 1;
+  text-align: right;
+  transform: translateX(-15px);
+}
+
+/* REMOVE BUTTON FIX */
+.col-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* RECEIPT BOX SHARP LOOK */
+.receipt-box {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  height: 250px;
+  overflow-y: auto;
+  padding: 10px;
+  color: black;
+}
+
+/* RECEIPT ROW CLEAN ALIGN */
+.receipt-row {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 14px;
+}
+.receipt-modal {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.receipt-items {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 45vh;
+  padding-right: 5px;
+}
+.receipt-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  padding-top: 10px;
+}
+.receipt-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  padding-bottom: 15px;
+
+}
+
+.receipt-actions button {
+  flex: 1;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+/* CLOSE BUTTON */
+.receipt-actions button:first-child {
+  background: #eb2424;
+  width: 200px;
+  color: white;
+}
+
+/* PRINT BUTTON */
+.receipt-actions button:last-child {
+  background: #001f3f;
+  color: white;
+}
+
+.receipt-actions button:hover {
+  opacity: 0.85;
+}
+.receipt-header-top {
+  font-family: "Segoe UI", sans-serif;
+  color: black;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* STORE NAME */
+.receipt-store {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+/* ADDRESS BLOCK */
+.receipt-address {
+  font-size: 11px;
+  line-height: 1.4;
+  color: #333;
+}
+
+/* CASHIER + DATE SEPARATE LINES (IMPORTANT FIX) */
+.receipt-info {
+  margin-top: 8px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column; /* <- ito nag-aayos ng sabog */
+  gap: 3px;
+  border-top: 1px dashed #ccc;
+  padding-top: 8px;
+}
+.receipt-modal-header {
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+/* STORE NAME */
+.receipt-modal-store {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* ADDRESS */
+.receipt-modal-address {
+  font-size: 11px;
+  line-height: 1.4;
+  color: #333;
+  margin-top: 4px;
+}
+
+/* CASHIER + DATE STACK */
+.receipt-modal-meta {
+  margin-top: 8px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-top: 1px dashed #ccc;
+  padding-top: 8px;
+}
+/* align same feel as items */
+.receipt-info span {
+  display: block;
+}
+.modal-box {
+  width: 400px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #111;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+.receipt-items {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.receipt-headerB {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+.receipt-summary .line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 3px 0;
+}
+
+.receipt-summary .total {
+  font-weight: bold;
+  font-size: 16px;
+  border-top: 1px dashed #000;
+  padding-top: 5px;
+  margin-top: 5px;
+}
+/* ANIMATION */
+@keyframes pop {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
