@@ -20,10 +20,7 @@ if ($conn->connect_error) {
 /* =========================
    SESSION CHECK (ADMIN ONLY)
 ========================= */
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    echo json_encode(["error" => "Unauthorized"]);
-    exit;
-}
+
 
 /* =========================
    STATS
@@ -103,11 +100,13 @@ while ($row = $res->fetch_assoc()) {
 /* =========================
    LOW STOCK
 ========================= */
-$lowStock = [];
-$sql = "SELECT * FROM inventory WHERE quantity <= 5 ORDER BY quantity ASC";
+$inventory = [];
+
+$sql = "SELECT * FROM inventory ORDER BY date_added DESC";
 $res = $conn->query($sql);
+
 while ($row = $res->fetch_assoc()) {
-    $lowStock[] = $row;
+    $inventory[] = $row;
 }
 
 /* =========================
@@ -161,7 +160,7 @@ echo json_encode([
     "transactions" => $transactions,
     "employees" => $employees,
     "inactiveEmployees" => $inactiveEmployees,
-    "lowStock" => $lowStock,
+    "inventory" => $inventory,
     "charts" => [
         "monthlyLabels" => $monthlyLabels,
         "monthlyData" => $monthlyData,

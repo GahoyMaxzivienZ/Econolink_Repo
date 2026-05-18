@@ -45,8 +45,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_item'])) {
     $price = (float) $_POST['price'];
 
     /* CHECK DUPLICATE */
-    $check = $conn->prepare("SELECT id FROM inventory WHERE LOWER(product_name)=LOWER(?) LIMIT 1");
-    $check->bind_param("s", $product_name);
+    $check = $conn->prepare("
+    SELECT id 
+    FROM inventory 
+    WHERE LOWER(product_name)=LOWER(?) 
+    AND LOWER(category)=LOWER(?)
+    LIMIT 1
+");
+
+    $check->bind_param("ss", $product_name, $category);
     $check->execute();
     $check->store_result();
 
@@ -73,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_item'])) {
         $target_file = $target_dir . $filename;
 
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            $image = $target_file;
+            $image = "http://localhost/project/backend/" . $target_file;
         }
     }
 
@@ -102,7 +109,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_item'])) {
     $quantity = (int) $_POST['quantity'];
     $price = (float) $_POST['price'];
     $image = $_POST['current_image'];
+    /* CHECK DUPLICATE EXCEPT CURRENT ITEM */
+    $check = $conn->prepare("
+    SELECT id 
+    FROM inventory
+    WHERE LOWER(product_name)=LOWER(?)
+    AND LOWER(category)=LOWER(?)
+    AND id != ?
+    LIMIT 1
+");
 
+    $check->bind_param("ssi", $product_name, $category, $id);
+    $check->execute();
+    $check->store_result();
+
+    if ($check->num_rows > 0) {
+        echo json_encode([
+            "error" => "Duplicate item not allowed"
+        ]);
+        exit;
+    }
+
+    $check->close();
     /* NEW IMAGE */
     if (!empty($_FILES['image']['name'])) {
 
@@ -115,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_item'])) {
         $target_file = $target_dir . $filename;
 
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            $image = $target_file;
+            $image = "http://localhost/project/backend/" . $target_file;
         }
     }
 
